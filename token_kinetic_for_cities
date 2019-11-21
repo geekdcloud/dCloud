@@ -1,0 +1,22 @@
+import http.client
+
+conn = http.client.HTTPConnection("ckc-preprod.cisco.com")
+
+payload = "{\"username\":\"username@sanjose.com\",\"password\":\"password\",\"scope\":\"device_e76d6131-095c-b747-ac14-1408ee643cfb-1571767120243\"}"
+
+headers = {
+    'sec-fetch-mode': "cors",
+    'origin': "https://ckc-preprod.cisco.com",
+    'user-agent': "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
+    'content-type': "application/json",
+    'accept': "*/*",
+    'cache-control': "no-cache",
+    'postman-token': "04b03c5f-0266-8e8e-131a-02aa83f7eed3"
+    }
+
+conn.request("POST", "/dsapi/v1/accounts/cdptoken?domain=sanjose.com", payload, headers)
+
+res = conn.getresponse()
+data = res.read()
+
+print(data.decode("utf-8"))
